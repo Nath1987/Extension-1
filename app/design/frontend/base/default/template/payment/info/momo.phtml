@@ -1,0 +1,62 @@
+<h2><strong><?php echo $this->getMethod()->getTitle() ?></strong></h2>
+<?php if($data = $this->getInfo()->getAdditionalData()): ?>
+    <?php $data = unserialize($data); ?>
+    <?php if(isset($data) && isset($data['transId']) ): ?>
+        <p>
+            <strong><?php echo Mage::helper('payment')->__('Transaction Code:') ?></strong>
+            <span>
+                <?php echo nl2br($this->htmlEscape($data['transId'])) ?>
+            </span>
+        </p>
+    <?php endif; ?>
+
+    <?php if(isset($data) && isset($data['amount'])): ?>
+        <p>
+            <strong><?php echo Mage::helper('payment')->__('Amount:') ?></strong>
+            <span>
+                <?php echo nl2br($this->htmlEscape($data['amount'])) ?>
+            </span>
+        </p>
+        
+    <?php endif; ?>
+
+    <?php if(isset($data) && isset($data['orderType'])): ?>
+        <p>
+            <strong><?php echo Mage::helper('payment')->__('Order Type:') ?></strong>
+            <span>
+                <?php echo nl2br($this->htmlEscape($data['orderType'])) ?>
+            </span>
+        </p>
+        
+    <?php endif; ?>
+
+    <?php if(isset($data) && isset($data['payType'])): ?>
+        <p>
+            <strong><?php echo Mage::helper('payment')->__('Pay Type:') ?></strong>
+            <span>
+                <?php echo nl2br($this->htmlEscape($data['payType'])) ?>
+            </span>
+        </p>
+        
+    <?php endif; ?>
+
+    <?php if(isset($data) && isset($data['message'])): ?>
+        <p>
+            <strong><?php echo Mage::helper('payment')->__('Message:') ?></strong>
+            <span>
+                <?php echo nl2br($this->htmlEscape($data['message'])) ?>
+            </span>
+        </p>
+        
+    <?php endif; ?>
+
+    <?php if(isset($data) && isset($data['localMessage'])): ?>
+        <p>
+            <strong><?php echo Mage::helper('payment')->__('Local Message:') ?></strong>
+             <span>
+                <?php echo nl2br($this->htmlEscape($data['localMessage'])) ?>
+            </span>
+        </p>
+       
+    <?php endif; ?>
+<?php endif; ?>
