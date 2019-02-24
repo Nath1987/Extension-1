@@ -32,7 +32,7 @@ class Config
      */
     public function getMode()
     {   
-        return $this->_configValue->getValue('payment/netpowermomo/mode',ScopeInterface::SCOPE_STORE);
+        return $this->_configValue->getValue(Cons::MODE_PATH,ScopeInterface::SCOPE_STORE);
     }
 
     /** 
@@ -44,20 +44,20 @@ class Config
         $mode = $this->getMode();
         if($mode === "production") {
             $configValues = [
-                'title' => $this->_configValue->getValue('payment/netpowermomo/title',ScopeInterface::SCOPE_STORE),
-                'partnerCode' => $this->_configValue->getValue('payment/netpowermomo/merchantnent_id',ScopeInterface::SCOPE_STORE),
-                'accessKey' => $this->_configValue->getValue('payment/netpowermomo/access_key',ScopeInterface::SCOPE_STORE),
-                'requestId' => $this->_configValue->getValue('payment/netpowermomo/secret_key',ScopeInterface::SCOPE_STORE),
-                'apiEndpoint' => $this->_configValue->getValue('payment/netpowermomo/api_endpoint',ScopeInterface::SCOPE_STORE)
+                'title' => $this->_configValue->getValue(Cons::TITLE_PATH,ScopeInterface::SCOPE_STORE),
+                'partnerCode' => $this->_configValue->getValue(Cons::MERCHANTNENT_ID_PATH,ScopeInterface::SCOPE_STORE),
+                'accessKey' => $this->_configValue->getValue(Cons::ACCESS_KEY_PATH,ScopeInterface::SCOPE_STORE),
+                'secretKey' => $this->_configValue->getValue(Cons::SECRECT_KEY_PATH,ScopeInterface::SCOPE_STORE),
+                'apiEndpoint' => $this->_configValue->getValue(Cons::API_ENDPOINT_PATH,ScopeInterface::SCOPE_STORE)
             ];
         }
         else {
             $configValues = [
-                'title' => $this->_configValue->getValue('payment/netpowermomo/title',ScopeInterface::SCOPE_STORE),
-                'partnerCode' => $this->_configValue->getValue('payment/netpowermomo/merchantnent_id_test',ScopeInterface::SCOPE_STORE),
-                'accessKey' => $this->_configValue->getValue('payment/netpowermomo/access_key_test',ScopeInterface::SCOPE_STORE),
-                'accessKey' => $this->_configValue->getValue('payment/netpowermomo/secret_key_test',ScopeInterface::SCOPE_STORE),
-                'apiEndpoint' => $this->_configValue->getValue('payment/netpowermomo/api_endpoint_test',ScopeInterface::SCOPE_STORE)
+                'title' => $this->_configValue->getValue(Cons::TITLE_PATH,ScopeInterface::SCOPE_STORE),
+                'partnerCode' => $this->_configValue->getValue(Cons::MERCHANTNENT_ID_TEST_PATH,ScopeInterface::SCOPE_STORE),
+                'accessKey' => $this->_configValue->getValue(Cons::ACCESS_KEY_TEST_PATH,ScopeInterface::SCOPE_STORE),
+                'secretKey' => $this->_configValue->getValue(Cons::SECRECT_KEY_TEST_PATH,ScopeInterface::SCOPE_STORE),
+                'apiEndpoint' => $this->_configValue->getValue(Cons::API_ENDPOINT_TEST_PATH,ScopeInterface::SCOPE_STORE)
             ];
         }
         return $configValues;

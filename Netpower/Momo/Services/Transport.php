@@ -10,13 +10,11 @@ class Transport implements TransportInterface
 	{
 		$result = $this->call("POST", $api, $data);
 		$result = json_decode($result, true);
-		if($result['code'] == 1) {
-
+		if($result['errorCode'] == "0") {
 			$result = json_encode($result);
 			return $result;
 		}
     	else {
-
 			return "0";
     	}
 	}

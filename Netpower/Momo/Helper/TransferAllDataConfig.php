@@ -28,24 +28,29 @@ class TransferAllDataConfig
      */
     public function allDataApiRequire($dataArray)
     {   
+        $res = [];
+
         $dataConfigs = $this->_config->getConfigValues();
         
-        $dataConfigs['amount'] = $dataArray['amount'];
-        $dataConfigs['orderInfo'] = $dataArray['orderInfo'];
-        $dataConfigs['extraData'] = $dataArray['extraData'];
-        $dataConfigs['orderId'] = time()."";
-        $dataConfigs['requestId'] = time()."";
-        $dataConfigs['returnUrl'] = "https://momo.vn/return"; 
-        $dataConfigs['notifyUrl'] = "https://dummy-url.vn/notify";
-        $dataConfigs['requestType'] = "captureMoMoWallet"; 
+        $res['partnerCode'] = $dataConfigs['partnerCode'];
+        $res['accessKey'] = $dataConfigs['accessKey'];
+        $res['requestId'] = time()."";
+        $res['amount'] = $dataArray['amount'];
+        $res['orderId'] = time()."";
+        $res['orderInfo'] = $dataArray['orderInfo'];
+        $res['returnUrl'] = "https://momo.vn/return"; 
+        $res['notifyUrl'] = "https://dummy-url.vn/notify";
+        $res['requestType'] = "captureMoMoWallet"; 
+        $res['extraData'] = $dataArray['extraData'];
+        
+        $dataCalculateSignature = $res;
+        $dataCalculateSignature['secretKey'] = $dataConfigs['secretKey'];
 
-        return $dataConfigs;
-        // $signature = $this->calculateSignature($dataConfigs);
+        $signature = $this->calculateSignature($dataCalculateSignature);
 
-        // $dataConfigs['signature'] = $signature;
+        $res['signature'] = $signature;
 
-        // return $dataConfigs;
-
+        return $res;
     }
 
     /** 
@@ -54,6 +59,10 @@ class TransferAllDataConfig
      */
     public function calculateSignature($dataArray)
     {
+        $rawHash = "partnerCode=".$dataArray['partnerCode']."&accessKey=".$dataArray['accessKey']."&requestId=".$dataArray['requestId']."&amount=".$dataArray['amount']."&orderId=".$dataArray['orderId']."&orderInfo=".$dataArray['orderInfo']."&returnUrl=".$dataArray['returnUrl']."&notifyUrl=".$dataArray['notifyUrl']."&extraData=".$dataArray['extraData'];
 
+        $signature = hash_hmac("sha256", $rawHash, $dataArray['secretKey']);
+
+        return $signature;
     }   
 }
