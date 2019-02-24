@@ -32,7 +32,7 @@ class Configs extends \Magento\Framework\App\Action\Action
     public function execute()
     {
         $dataArray = [
-            'amount' => "50000",
+            'amount' => "40000",
             'orderInfo' => "pay with MoMo",
             'extraData' => "merchantName=Grab taxi;merchantId=3948"
         ];
