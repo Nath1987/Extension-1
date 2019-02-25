@@ -15,7 +15,7 @@ class Transport implements TransportInterface
 			return $result;
 		}
     	else {
-			return "0";
+			return $result['errorCode'];
     	}
 	}
 

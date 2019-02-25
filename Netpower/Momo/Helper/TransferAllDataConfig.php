@@ -5,6 +5,9 @@ namespace Netpower\Momo\Helper;
 use Netpower\Momo\Services\Config;
 use Netpower\Momo\Services\Transport;
 
+use Netpower\Momo\Services\Cons;
+
+use \Magento\Framework\App\ObjectManager;
 class TransferAllDataConfig 
 {
 
@@ -34,15 +37,15 @@ class TransferAllDataConfig
         
         $res['partnerCode'] = $dataConfigs['partnerCode'];
         $res['accessKey'] = $dataConfigs['accessKey'];
-        $res['requestId'] = time()."";
+        $res['requestId'] = $dataArray['requestId'];
         $res['amount'] = $dataArray['amount'];
-        $res['orderId'] = time()."";
-        $res['orderInfo'] = $dataArray['orderInfo'];
-        $res['returnUrl'] = "https://momo.vn/return"; 
-        $res['notifyUrl'] = "https://dummy-url.vn/notify";
-        $res['requestType'] = "captureMoMoWallet"; 
+        $res['orderId'] = $dataArray['orderId'];    
+        $res['orderInfo'] = $dataConfigs['title'];
+        $res['returnUrl'] = Cons::RETURN_URL; 
+        $res['notifyUrl'] = Cons::NOTIFY_URL;
+        $res['requestType'] = Cons::REQUEST_TYPE; 
         $res['extraData'] = $dataArray['extraData'];
-        
+
         $dataCalculateSignature = $res;
         $dataCalculateSignature['secretKey'] = $dataConfigs['secretKey'];
 
@@ -64,5 +67,13 @@ class TransferAllDataConfig
         $signature = hash_hmac("sha256", $rawHash, $dataArray['secretKey']);
 
         return $signature;
+    }
+
+    public function getOrderTotal()
+    {
+        $objectManager = ObjectManager::getInstance();
+        $cart = $objectManager->get('\Magento\Checkout\Model\Cart'); 
+        $grandTotal = $cart->getQuote()->getGrandTotal();
+        return $grandTotal;
     }   
 }

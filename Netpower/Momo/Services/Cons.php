@@ -18,4 +18,12 @@ class Cons
     const SECRECT_KEY_TEST_PATH = 'payment/netpowermomo/secret_key_test';
     const API_ENDPOINT_TEST_PATH = 'payment/netpowermomo/api_endpoint_test';
 
+
+    // URL RETURN and NOTIFY
+    const RETURN_URL = "http://caomoi.local/";
+    const NOTIFY_URL = "http://caomoi.local/";
+
+    //REQUEST TYPE 
+    const REQUEST_TYPE = "captureMoMoWallet";
+
 }

@@ -40,8 +40,17 @@ class Configs extends \Magento\Framework\App\Action\Action
 
         $dataSend = json_encode($configValues);
 
+       var_dump($dataSend);  
+
+
        $result =  $this->_transport->post('https://test-payment.momo.vn/gw_payment/transactionProcessor',$dataSend);
 
-       var_dump($result);
+       $result = json_decode($result, true);
+        
+
+       $url = $result['payUrl'];
+
+       return $this->resultRedirectFactory->create()->setUrl($url);
+
     }
 }
