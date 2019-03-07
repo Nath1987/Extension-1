@@ -9,48 +9,34 @@ use Netpower\Momo\Helper\TransferAllDataConfig;
 
 use \Magento\Framework\App\Action\Context; 
 
+use \Magento\Checkout\Model\Session;
+
 class Configs extends \Magento\Framework\App\Action\Action
 {
 
     protected $_helper;
     protected $_transport;
     protected $_config;
+    protected $_session;
 
     public function __construct(
         Config $config,
         TransferAllDataConfig $helper,
         Transport $transport,
-        Context $context
+        Context $context,
+        Session $session
         )
     {
         $this->_config = $config;
         $this->_helper = $helper;
         $this->_transport = $transport;
+        $this->_session = $session;
         return parent::__construct($context);
     }
 
     public function execute()
     {
-        $dataArray = [
-            'amount' => "40000",
-            'orderInfo' => "pay with MoMo",
-            'extraData' => "merchantName=Grab taxi;merchantId=3948"
-        ];
-        $configValues = $this->_helper->allDataApiRequire($dataArray);
-
-        $dataSend = json_encode($configValues);
-
-       var_dump($dataSend);  
-
-
-       $result =  $this->_transport->post('https://test-payment.momo.vn/gw_payment/transactionProcessor',$dataSend);
-
-       $result = json_decode($result, true);
-        
-
-       $url = $result['payUrl'];
-
+       $url = $this->_session->getPayUrl();
        return $this->resultRedirectFactory->create()->setUrl($url);
-
     }
 }

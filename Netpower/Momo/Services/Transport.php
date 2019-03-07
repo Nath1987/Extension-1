@@ -4,21 +4,52 @@ namespace Netpower\Momo\Services;
 
 use \Netpower\Momo\Api\Services\TransportInterface;
 
+use Netpower\Momo\Helper\CatchErrorCodeRequest;
+use Netpower\Momo\Helper\CatchStatusCheck;
+
 class Transport implements TransportInterface 
 {
+
+	/**
+	 * @param String $api : is URL of Endpoint API
+	 * @param Json $data : contain value format json send to API.
+	 * @return Json Response value or String Error.
+	 */
     public function post($api, $data = null)
-	{
-		$result = $this->call("POST", $api, $data);
-		$result = json_decode($result, true);
-		if($result['errorCode'] == "0") {
-			$result = json_encode($result);
-			return $result;
-		}
-    	else {
-			return $result['errorCode'];
-    	}
+	{	
+			//$this->log($data);
+			
+			$result = $this->call("POST", $api, $data);
+			$result = json_decode($result, true);
+			$message = $result['message'];
+
+			if(isset($result['errorCode'])){
+				$errorCode = $result['errorCode'];
+				if($errorCode == 0) {
+					return $result;
+				}
+				else {
+					return $message;
+				}
+			}
+			else {
+				$status = $result['status'];
+				if($status == 0) {
+					return $result;
+				}
+				else {
+					return $message;
+				}
+			}
+			
 	}
 
+	/**
+	 * @param String $method : maybe POST, GET, PUT, DELETE ...
+	 * @param String $api : URL API.
+	 * @param Json $data : Value request send to API.
+	 * @return Json Response value
+	 */
 	public function call($method, $api, $data = null)
 	{	
 		if($method == "POST") {
@@ -33,6 +64,10 @@ class Transport implements TransportInterface
      	}
 	}
 
+	/**
+	 * @param Simple Value.
+	 * @return File Log.
+	 */
 	public function log($variable)
 	{
 		$writer = new \Zend\Log\Writer\Stream(BP . '/var/log/test.log');

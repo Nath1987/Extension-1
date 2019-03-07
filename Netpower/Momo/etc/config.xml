@@ -7,11 +7,13 @@
                 <model>Netpower\Momo\Model\PaymentMethod</model>
                 <active>1</active>
                 <mode>test</mode>
-                <title>MoMo</title>
-                <merchantnent_id_test>MOMOUHFY20190218</merchantnent_id_test>
-                <access_key_test>mSYUgbdLmLOFku7V</access_key_test>
-                <secret_key_test>XtbT0tyiEXgZ5vL4ijrfosVCl4CYNk8z</secret_key_test>
-                <api_endpoint_test>https://test-payment.momo.vn/gw_payment/transactionProcessor</api_endpoint_test>
+                <title><![CDATA[MoMo]]></title>
+                <checkout_type>1</checkout_type>
+                <merchantnent_id_test><![CDATA[MOMOIQA420180417]]></merchantnent_id_test>
+                <access_key_test><![CDATA[SvDmj2cOTYZmQQ3H]]></access_key_test>
+                <secret_key_test><![CDATA[PPuDXq1KowPT1ftR8DvlQTHhC03aul17]]></secret_key_test>
+                <public_key_test><![CDATA[MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkpa+qMXS6O11x7jBGo9W3yxeHEsAdyDE40UoXhoQf9K6attSIclTZMEGfq6gmJm2BogVJtPkjvri5/j9mBntA8qKMzzanSQaBEbr8FyByHnf226dsLt1RbJSMLjCd3UC1n0Yq8KKvfHhvmvVbGcWfpgfo7iQTVmL0r1eQxzgnSq31EL1yYNMuaZjpHmQuT24Hmxl9W9enRtJyVTUhwKhtjOSOsR03sMnsckpFT9pn1/V9BE2Kf3rFGqc6JukXkqK6ZW9mtmGLSq3K+JRRq2w8PVmcbcvTr/adW4EL2yc1qk9Ec4HtiDhtSYd6/ov8xLVkKAQjLVt7Ex3/agRPfPrNwIDAQAB]]></public_key_test>
+                <api_endpoint_test><![CDATA[https://test-payment.momo.vn]]></api_endpoint_test>
                 <order_status>pending_payment</order_status>
             </netpowermomo>
         </payment>

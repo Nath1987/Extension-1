@@ -7,6 +7,11 @@ use \Netpower\Momo\Services\Transport;
 
 use \Netpower\Momo\Helper\TransferAllDataConfig;
 
+use \Magento\Framework\UrlInterface;
+
+use \Magento\Framework\App\ResponseFactory;
+
+use \Magento\Checkout\Model\Session;
 
 class SolveUrl implements \Magento\Framework\Event\ObserverInterface
 {      
@@ -25,20 +30,45 @@ class SolveUrl implements \Magento\Framework\Event\ObserverInterface
      * @var \Netpower\Momo\Services\Transport
      */
     protected $_transport;
+
+     /**
+     * @var \Netpower\Momo\Services\UrlInterface
+     */
+    protected $_url;
+
+    /**
+     * @var \Magento\Framework\App\ResponseFactory
+     */
+    protected $_responseFactory;
+
+    /**
+     * @var \Magento\Checkout\Model\Session
+     */
+    protected $_session;
+
     /**
      * @param \Netpower\Momo\Services\Config $config
      * @param \Netpower\Momo\Helper\TransferAllDataConfig $transfer
      * @param \Netpower\Momo\Services\Transport $transport
+     * @param \Magento\Framework\UrlInterface $url
+     * @param \Magento\Framework\App\ResponseFactory $responseFactor
+     * @param \Magento\Checkout\Model\Session $session
      */
     public function __construct(
         Config $config,
         TransferAllDataConfig $transfer,
-        Transport $transport
+        Transport $transport,
+        UrlInterface $url,
+        ResponseFactory $responseFactor,
+        Session $session
     )
     {
         $this->_config = $config;
         $this->_transfer = $transfer;
         $this->_transport = $transport;
+        $this->_url = $url;
+        $this->_responseFactory = $responseFactor;
+        $this->_session = $session;
     }
 
      /**
@@ -51,7 +81,6 @@ class SolveUrl implements \Magento\Framework\Event\ObserverInterface
         $requestId = $orderId = time()."";
 
         $amount = $this->_transfer->getOrderTotal();
-
 
         $shippingAddress = $order->getShippingAddress();
         $firstname = $shippingAddress->getData('firstname');
@@ -69,14 +98,18 @@ class SolveUrl implements \Magento\Framework\Event\ObserverInterface
 
         $dataSend = json_encode($configValues);
 
+        $result =  $this->_transport->post('https://test-payment.momo.vn/gw_payment/transactionProcessor',$dataSend);
 
-       $result =  $this->_transport->post('https://test-payment.momo.vn/gw_payment/transactionProcessor',$dataSend);
+        $result = json_decode($result, true);
 
-       $result = json_decode($result, true);
+        $payUrl = $result['payUrl'];
 
-       $url = $result['payUrl'];
+        $this->_session->setPayUrl($payUrl);
 
-       //return $this->resultRedirectFactory->create()->setUrl($url);
+        $redirectionUrl = $this->_url->getUrl('netpowermomo/testservice/configs');
+        $this->_responseFactory->create()->setRedirect($redirectionUrl)->sendResponse();
+            
+        return $this;
     }
 }
 

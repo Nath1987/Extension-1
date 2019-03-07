@@ -24,7 +24,10 @@
                 <field id="secret_key" translate="label" type="text" sortOrder="32" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Secret Key</label>
                 </field>
-                <field id="api_endpoint" translate="label" type="text" sortOrder="33" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="public_key" translate="label" type="text" sortOrder="33" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Public Key</label>
+                </field>
+                <field id="api_endpoint" translate="label" type="text" sortOrder="39" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>API Endpoint</label>
                 </field>
                 <field id="merchantnent_id_test" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -36,7 +39,10 @@
                 <field id="secret_key_test" translate="label" type="text" sortOrder="42" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Secret Key TEST MODE</label>
                 </field>
-                <field id="api_endpoint_test" translate="label" type="text" sortOrder="43" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="public_key_test" translate="label" type="text" sortOrder="43" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Public Key TEST MODE</label>
+                </field>
+                <field id="api_endpoint_test" translate="label" type="text" sortOrder="49" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>API Endpoint TEST MODE</label>
                 </field>
             </group>
